@@ -17,10 +17,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import hoods.com.newsy.R
 import hoods.com.newsy.features_presentations.core.ui.theme.NewsyTheme
+import hoods.com.newsy.utils.TestTags
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,7 +46,7 @@ fun HomeTopAppBar(
             )
         },
         navigationIcon = {
-            IconButton(onClick = openDrawer) {
+            IconButton(onClick = openDrawer, modifier = Modifier.testTag(TestTags.DrawerBtn)) {
                 Icon(
                     painterResource(R.drawable.ic_newsy_logo),
                     contentDescription = "navigation",

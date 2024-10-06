@@ -10,6 +10,7 @@ import hoods.com.newsy.features_components.core.data.remote.models.Article
 import hoods.com.newsy.features_components.core.data.remote.models.NewsyRemoteDto
 import hoods.com.newsy.features_components.core.domain.mapper.Mapper
 import hoods.com.newsy.features_components.core.domain.models.NewsyArticle
+import hoods.com.newsy.features_components.headline.data.local.dao.HeadlineDao
 import hoods.com.newsy.features_components.headline.data.local.model.HeadlineDto
 import hoods.com.newsy.features_components.headline.data.paging.HeadlineRemoteMediator
 import hoods.com.newsy.features_components.headline.data.remote.HeadlineApi
@@ -19,8 +20,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class HeadlineRepositoryImpl(
-    private val headlineApi: HeadlineApi,
-    private val database: NewsyArticleDatabase,
+    private val headlineDao: HeadlineDao,
+    private val mediator: HeadlineRemoteMediator,
     private val mapper: Mapper<HeadlineDto, NewsyArticle>,
 ) : HeadlineRepository {
     @OptIn(ExperimentalPagingApi::class)
@@ -35,15 +36,13 @@ class HeadlineRepositoryImpl(
                 prefetchDistance = K.PAGE_SIZE - 1,
                 initialLoadSize = 10
             ),
-            remoteMediator = HeadlineRemoteMediator(
-                api = headlineApi,
-                database = database,
-                category = category,
-                country = country,
-                language = language,
-            )
+            remoteMediator = mediator.apply {
+                this.category = category
+                this.country = country
+                this.language = language
+            }
         ) {
-            database.headlineDao().getAllHeadlineArticles()
+            headlineDao.getAllHeadlineArticles()
         }.flow.map { dtoPager ->
             dtoPager.map { dto ->
                 mapper.toModel(dto)
@@ -52,7 +51,7 @@ class HeadlineRepositoryImpl(
     }
 
     override suspend fun updateFavouriteArticle(newsyArticle: NewsyArticle) {
-        database.headlineDao().updateFavouriteArticle(
+        headlineDao.updateFavouriteArticle(
             isFavourite = newsyArticle.favourite,
             id = newsyArticle.id
         )

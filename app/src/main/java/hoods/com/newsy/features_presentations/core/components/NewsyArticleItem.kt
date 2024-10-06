@@ -23,12 +23,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import hoods.com.newsy.R
 import hoods.com.newsy.features_components.core.domain.models.DomainContract
+import hoods.com.newsy.utils.TestTags
 import hoods.com.newsy.utils.Utils
 
 @Composable
@@ -47,6 +49,7 @@ fun NewsyArticleItem(
         modifier = Modifier.padding(itemPadding).clickable {
             onClick(article)
         }
+            .testTag(TestTags.NewsyArticle)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),

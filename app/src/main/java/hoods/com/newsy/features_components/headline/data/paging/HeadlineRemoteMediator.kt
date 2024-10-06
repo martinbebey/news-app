@@ -22,9 +22,9 @@ import java.util.concurrent.TimeUnit
 class HeadlineRemoteMediator(
     private val api: HeadlineApi,
     private val database: NewsyArticleDatabase,
-    private val category: String = "",
-    private val country: String = "",
-    private val language: String = "",
+    var category: String = "",
+    var country: String = "",
+    var language: String = "",
 ) : RemoteMediator<Int, HeadlineDto>() {
 
     override suspend fun initialize(): InitializeAction {

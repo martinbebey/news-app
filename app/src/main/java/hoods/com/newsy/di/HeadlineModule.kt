@@ -14,6 +14,7 @@ import hoods.com.newsy.features_components.headline.data.local.dao.HeadlineRemot
 import hoods.com.newsy.features_components.headline.data.local.model.HeadlineDto
 import hoods.com.newsy.features_components.headline.data.mapper.ArticleHeadlineDtoMapper
 import hoods.com.newsy.features_components.headline.data.mapper.HeadlineMapper
+import hoods.com.newsy.features_components.headline.data.paging.HeadlineRemoteMediator
 import hoods.com.newsy.features_components.headline.data.remote.HeadlineApi
 import hoods.com.newsy.features_components.headline.data.repository.HeadlineRepositoryImpl
 import hoods.com.newsy.features_components.headline.domain.repository.HeadlineRepository
@@ -45,19 +46,29 @@ object HeadlineModule {
             .create(HeadlineApi::class.java)
     }
 
+    @Provides
+    @Singleton
+    fun provideHeadlineMediator(
+        api: HeadlineApi,
+        database: NewsyArticleDatabase
+    ): HeadlineRemoteMediator {
+        return HeadlineRemoteMediator(
+            api, database
+        )
+    }
+
 
     @Provides
     @Singleton
     fun provideHeadlineRepository(
-        api: HeadlineApi,
-        database: NewsyArticleDatabase,
+        headlineDao: HeadlineDao,
+        headlineRemoteMediator: HeadlineRemoteMediator,
         mapper: Mapper<HeadlineDto, NewsyArticle>,
     ): HeadlineRepository {
         return HeadlineRepositoryImpl(
-            headlineApi = api,
-            database = database,
-            mapper = mapper,
-
+            mediator = headlineRemoteMediator,
+            headlineDao = headlineDao,
+            mapper = mapper
         )
     }
 

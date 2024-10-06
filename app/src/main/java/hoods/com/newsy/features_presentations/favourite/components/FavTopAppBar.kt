@@ -12,8 +12,10 @@ import androidx.compose.material3.TopAppBarState
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import hoods.com.newsy.R
+import hoods.com.newsy.utils.TestTags
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,12 +29,12 @@ fun FavTopAppBar(
     CenterAlignedTopAppBar(
         title = {
             Text(
-                text = "Favourite",
+                text = "Favourite Screen",
                 style = MaterialTheme.typography.titleLarge
             )
         },
         navigationIcon = {
-            IconButton(openDrawer) {
+            IconButton(openDrawer, modifier = Modifier.testTag(TestTags.DrawerBtn)) {
                 Icon(
                     painter = painterResource(R.drawable.ic_newsy_logo),
                     "navigation",

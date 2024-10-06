@@ -26,14 +26,17 @@ data class Article(
     val urlToImage: String? = null,
 )
 
+//solution to assignment
 fun Article.toDiscoverArticle(page: Int, category: String): DiscoverArticleDto {
+    if (page < 0) throw IndexOutOfBoundsException("Page only accept positive value,but $page was passed")
+    if (category.isEmpty()) throw IllegalArgumentException("Category can not be empty")
     return DiscoverArticleDto(
-        author = author,
-        content = content ?: "empty value",
-        description = description ?: " empty value",
-        publishedAt = publishedAt,
-        title = title,
-        source = source.name,
+        author = formatEmptyValue(author, "author"),
+        content = formatEmptyValue(content, "content"),
+        description = formatEmptyValue(description, "description"),
+        publishedAt = formatEmptyValue(publishedAt, "date"),
+        source = formatEmptyValue(source.name, "source"),
+        title = formatEmptyValue(title, "title"),
         category = category,
         url = url,
         urlToImage = urlToImage,
@@ -41,14 +44,16 @@ fun Article.toDiscoverArticle(page: Int, category: String): DiscoverArticleDto {
     )
 }
 
-fun Article.toHeadlineArticle(page: Int,category: String):HeadlineDto{
+fun Article.toHeadlineArticle(page: Int, category: String): HeadlineDto {
+    if (category.isEmpty()) throw IllegalArgumentException("category can not be empty")
+    if (page < 0) throw IndexOutOfBoundsException("page accepts only positive values,but $page was passed")
     return HeadlineDto(
         author = formatEmptyValue(author, "author"),
         content = formatEmptyValue(content, "content"),
         description = formatEmptyValue(description, "description"),
-        publishedAt = publishedAt,
-        source = source.name,
-        title = title,
+        publishedAt = formatEmptyValue(publishedAt, "date"),
+        source = formatEmptyValue(source.name, "source"),
+        title = formatEmptyValue(title, "title"),
         url = url,
         urlToImage = urlToImage,
         page = page,
@@ -58,7 +63,8 @@ fun Article.toHeadlineArticle(page: Int,category: String):HeadlineDto{
 
 
 private fun formatEmptyValue(value: String?, default: String = ""): String {
-    return value ?: "Unknown $default"
+    if (value.isNullOrEmpty()) return "Unknown $default"
+    return value
 }
 
 

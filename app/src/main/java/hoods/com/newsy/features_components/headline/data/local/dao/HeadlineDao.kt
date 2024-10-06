@@ -25,8 +25,10 @@ interface HeadlineDao {
     )
     suspend fun removeAllHeadlineArticles()
 
-    @Delete
-    suspend fun removeFavouriteArticle(headlineDto: HeadlineDto)
+    @Query(
+        "DELETE FROM headline_table WHERE id=:id AND favourite=1"
+    )
+    suspend fun removeFavouriteArticle(id: Int)
 
     @Query(
         "UPDATE headline_table SET favourite =:isFavourite WHERE id=:id"
@@ -34,6 +36,8 @@ interface HeadlineDao {
     suspend fun updateFavouriteArticle(isFavourite: Boolean, id: Int)
 
 }
+
+fun a(){}
 
 
 

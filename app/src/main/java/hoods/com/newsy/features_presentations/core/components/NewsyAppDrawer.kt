@@ -18,10 +18,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import hoods.com.newsy.R
 import hoods.com.newsy.features_presentations.core.navigation.UiScreen
+import hoods.com.newsy.utils.TestTags
 
 @Composable
 fun NewysAppDrawerContent(
@@ -39,6 +43,7 @@ fun NewysAppDrawerContent(
                     horizontal = 28.dp,
                     vertical = 24.dp
                 )
+                .testTag(TestTags.NewsyLogoIcon)
         )
 
         NavigationDrawerItem(
@@ -46,9 +51,11 @@ fun NewysAppDrawerContent(
             icon = { Icon(imageVector = Icons.Filled.Home, null) },
             selected = currentRoute == UiScreen.HomeScreen().route,
             onClick = { navigateToHome();closeDrawer() },
-            modifier = Modifier.padding(
-                NavigationDrawerItemDefaults.ItemPadding
-            )
+            modifier = Modifier
+                .padding(
+                    NavigationDrawerItemDefaults.ItemPadding
+                )
+                .semantics { contentDescription = "Home" }
         )
 
         NavigationDrawerItem(
@@ -56,9 +63,11 @@ fun NewysAppDrawerContent(
             icon = { Icon(imageVector = Icons.Filled.Bookmark, null) },
             selected = currentRoute == UiScreen.FavouriteScreen().route,
             onClick = { navigateToFavouriteScreen();closeDrawer() },
-            modifier = Modifier.padding(
-                NavigationDrawerItemDefaults.ItemPadding
-            )
+            modifier = Modifier
+                .padding(
+                    NavigationDrawerItemDefaults.ItemPadding
+                )
+                .semantics { contentDescription = "Favourite" }
         )
 
         NavigationDrawerItem(
@@ -66,9 +75,11 @@ fun NewysAppDrawerContent(
             icon = { Icon(imageVector = Icons.Filled.Settings, null) },
             selected = currentRoute == UiScreen.SettingsScreen().route,
             onClick = { navigateToSetting();closeDrawer() },
-            modifier = Modifier.padding(
-                NavigationDrawerItemDefaults.ItemPadding
-            )
+            modifier = Modifier
+                .padding(
+                    NavigationDrawerItemDefaults.ItemPadding
+                )
+                .semantics { contentDescription = "Settings" }
         )
 
 

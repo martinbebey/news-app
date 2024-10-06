@@ -17,4 +17,17 @@ interface FavouriteDao {
         """
     )
     fun getAllFavouriteArticles(): PagingSource<Int, FavouriteDto>
+
+    @Query(
+        "UPDATE discover_article SET favourite=:isFavourite WHERE id=:id"
+    )
+    suspend fun updateFavouriteArticle(isFavourite: Boolean, id: Int): Int
+    @Query(
+        "UPDATE headline_table SET favourite=:isFavourite WHERE id=:id"
+    )
+    suspend fun updateHeadlineArticle(isFavourite: Boolean, id: Int): Int
+    @Query(
+        "UPDATE search_table SET favourite=:isFavourite WHERE id=:id"
+    )
+    suspend fun updateSearchArticle(isFavourite: Boolean, id: Int): Int
 }

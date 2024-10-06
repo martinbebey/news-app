@@ -106,7 +106,7 @@ fun SettingScreen(
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        text = "Settings",
+                        text = "Settings Screen",
                         style = MaterialTheme.typography.titleLarge
                     )
                 },

@@ -23,3 +23,7 @@ interface HeadlineApi {
 
 
 }
+
+fun a(){
+
+}

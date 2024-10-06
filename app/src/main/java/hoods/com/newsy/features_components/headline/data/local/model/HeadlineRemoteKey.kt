@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity("headline_key")
+
 data class HeadlineRemoteKey(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "article_id")
