@@ -21,7 +21,7 @@ import hoods.com.newsy.features_components.search.data.local.models.SearchRemote
 
 @Database(
     entities = [
-        HeadlineDao::class,
+//        HeadlineDao::class,
         HeadlineDto::class,
         HeadlineRemoteKey::class,
         DiscoverArticleDto::class,
