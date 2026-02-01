@@ -6,7 +6,7 @@
 - Jetpack compose UI tests
 
 # Demo
-N/A
+https://github.com/user-attachments/assets/cec1d258-9c79-4edf-8bae-0605df3f95b7
 
 # Installation
 Build the app on Android Studio and launch on a connected device
